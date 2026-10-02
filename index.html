@@ -46,37 +46,104 @@
             <div class="field">
               <label for="amount">Amount</label>
               <input id="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required />
-            </div>
+            <!DOCTYPE html>
+            <html lang="en">
+              <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <meta name="theme-color" content="#f5f6f2" />
+                <title>Commonplace | Expense tracker</title>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+                <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+                <link rel="stylesheet" href="style.css" />
+                <script src="script.js" defer></script>
+              </head>
+              <body>
+                <div class="app-shell">
+                  <aside class="sidebar" aria-label="Main navigation">
+                    <a class="brand" href="#overview" aria-label="Commonplace home">
+                      <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+                      <span>commonplace</span>
+                    </a>
+                    <div class="sidebar-label">YOUR SPACE</div>
+                    <a class="nav-link active" href="#overview"><span class="nav-icon nav-overview" aria-hidden="true"></span>Overview</a>
+                    <a class="nav-link" href="#transactions"><span class="nav-icon nav-activity" aria-hidden="true"></span>Transactions</a>
+                    <a class="nav-link" href="#insights"><span class="nav-icon nav-insights" aria-hidden="true"></span>Spending insights</a>
+                    <div class="sidebar-bottom">
+                      <div class="sidebar-note"><span class="note-spark" aria-hidden="true">✳</span><p>Small choices add up.<br /><strong>You’re keeping track.</strong></p></div>
+                      <div class="profile"><span class="profile-avatar">Y</span><span><strong>Your finances</strong><small>Personal space</small></span><span class="profile-more" aria-hidden="true">···</span></div>
+                    </div>
+                  </aside>
 
-            <div class="field">
-              <label for="category">Category</label>
-              <select id="category">
-                <option value="Food">Food</option>
-                <option value="Transport">Transport</option>
-                <option value="Housing">Housing</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Health">Health</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
+                  <main class="main-content" id="overview">
+                    <header class="topbar">
+                      <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>Overview</strong></div>
+                      <div class="topbar-right"><span class="today-label" id="todayLabel"></span><span class="top-avatar" aria-label="Your account">Y</span></div>
+                    </header>
 
-            <div class="field">
-              <label for="date">Date</label>
-              <input id="date" type="date" required />
-            </div>
+                    <div class="page-content">
+                      <section class="page-heading">
+                        <div><p class="eyebrow">YOUR MONEY, IN FOCUS</p><h1>A little more clarity.</h1><p class="heading-copy">Here’s where your money is going this month.</p></div>
+                        <label class="month-picker"><span class="sr-only">Choose month</span><input id="monthInput" type="month" /></label>
+                      </section>
 
-            <button class="primary-btn" type="submit">Add Expense</button>
-          </form>
-        </div>
+                      <section class="summary-grid" aria-label="Monthly summary">
+                        <article class="summary-card spent-card">
+                          <div class="card-topline"><span class="summary-label">Total spent</span><span class="card-icon spent-icon" aria-hidden="true">↗</span></div>
+                          <p class="summary-value" id="totalSpent">$0.00</p>
+                          <p class="summary-foot" id="spentCaption">Across 0 transactions</p>
+                        </article>
+                        <article class="summary-card remaining-card">
+                          <div class="card-topline"><span class="summary-label">Budget remaining</span><span class="card-icon remaining-icon" aria-hidden="true">◎</span></div>
+                          <p class="summary-value" id="remainingBudget">$0.00</p>
+                          <div class="budget-progress" role="progressbar" aria-label="Monthly budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="budgetProgress"></span></div>
+                          <p class="summary-foot" id="budgetCaption">Set a budget to track your pace</p>
+                        </article>
+                        <article class="summary-card budget-card">
+                          <div class="card-topline"><label class="summary-label" for="budgetInput">Monthly budget</label><span class="card-icon budget-icon" aria-hidden="true">⌁</span></div>
+                          <div class="budget-entry"><span>$</span><input id="budgetInput" type="number" min="0" step="0.01" placeholder="0.00" aria-label="Monthly budget in dollars" /></div>
+                          <p class="summary-foot">Your spending limit for the month</p>
+                        </article>
+                      </section>
 
-        <div class="panel">
-          <h2>Recent Expenses</h2>
-          <div id="transactions" class="transactions"></div>
-        </div>
-      </div>
-    </div>
-    script src="script.js"></script>
-  </body>
-</html>
+                      <section class="workspace-grid">
+                        <div class="primary-column">
+                          <section class="panel transactions-panel" id="transactions">
+                            <div class="panel-heading">
+                              <div><p class="eyebrow">THE DETAILS</p><h2>Transactions</h2></div>
+                              <button class="text-button" id="exportButton" type="button" title="Download this month's transactions as CSV"><span aria-hidden="true">↓</span> Export</button>
+                            </div>
+                            <div class="transaction-tools">
+                              <label class="search-box"><span class="search-icon" aria-hidden="true"></span><span class="sr-only">Search transactions</span><input id="searchInput" type="search" placeholder="Search expenses" /></label>
+                              <label class="filter-select"><span class="sr-only">Filter by category</span><select id="categoryFilter"><option value="all">All categories</option><option>Food</option><option>Transport</option><option>Housing</option><option>Utilities</option><option>Entertainment</option><option>Health</option><option>Shopping</option><option>Other</option></select></label>
+                            </div>
+                            <div class="transaction-list" id="transactionsList" aria-live="polite"></div>
+                          </section>
+
+                          <section class="panel insights-panel" id="insights">
+                            <div class="panel-heading compact-heading"><div><p class="eyebrow">WHERE IT GOES</p><h2>Spending by category</h2></div><span class="insights-period" id="insightsPeriod"></span></div>
+                            <div class="category-breakdown" id="categoryBreakdown"></div>
+                          </section>
+                        </div>
+
+                        <aside class="panel add-panel">
+                          <div class="add-panel-heading"><span class="add-mark" aria-hidden="true">+</span><div><p class="eyebrow">MAKE A NOTE</p><h2>Add an expense</h2></div></div>
+                          <form id="expenseForm">
+                            <div class="field"><label for="title">What was it for?</label><input id="title" type="text" maxlength="60" placeholder="e.g. Weekly groceries" autocomplete="off" required /></div>
+                            <div class="field"><label for="amount">How much?</label><div class="amount-input"><span>$</span><input id="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required /></div></div>
+                            <div class="form-row">
+                              <div class="field"><label for="category">Category</label><select id="category"><option>Food</option><option>Transport</option><option>Housing</option><option>Utilities</option><option>Entertainment</option><option>Health</option><option>Shopping</option><option>Other</option></select></div>
+                              <div class="field"><label for="date">Date</label><input id="date" type="date" required /></div>
+                            </div>
+                            <button class="submit-button" type="submit"><span aria-hidden="true">+</span> Add expense</button>
+                          </form>
+                          <p class="privacy-note"><span aria-hidden="true">⌑</span> Your data stays on this device.</p>
+                        </aside>
+                      </section>
+                      <footer class="page-footer"><span>Made for a clearer relationship with money.</span><span id="footerMonth"></span></footer>
+                    </div>
+                  </main>
+                </div>
+              </body>
+            </html>
